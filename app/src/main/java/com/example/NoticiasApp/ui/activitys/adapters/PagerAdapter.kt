@@ -1,0 +1,21 @@
+package com.example.NoticiasApp.ui.activitys.adapters
+
+import android.content.res.Resources
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.NoticiasApp.ui.fragments.FragmentTopHeadlines
+import com.example.NoticiasApp.ui.fragments.FragmentNewsSaved
+
+class PagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
+    override fun getItemCount() = 2
+
+    override fun createFragment(position: Int): Fragment {
+        return when(position){
+            0 -> { FragmentTopHeadlines() }
+            1 -> { FragmentNewsSaved() }
+
+            else -> { throw Resources.NotFoundException("Posicion no encontrada")}
+        }
+    }
+}

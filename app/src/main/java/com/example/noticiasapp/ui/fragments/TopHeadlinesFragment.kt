@@ -21,6 +21,7 @@ import com.example.noticiasapp.ui.viewModel.NewsViewModel
 import com.example.noticiasapp.util.Constants.Companion.QUERY_PAGE_ZISE
 import com.example.noticiasapp.util.OnclickListener
 import com.example.noticiasapp.util.Resource
+import com.example.noticiasapp.util.providerPreferencias
 
 
 class TopHeadlinesFragment : Fragment(), OnclickListener {
@@ -38,6 +39,7 @@ class TopHeadlinesFragment : Fragment(), OnclickListener {
     private val newsAdapter: NewsAdapter by lazy {
         NewsAdapter(this)
     }
+    lateinit var providerPreferencias: providerPreferencias
 
     val TAG = "BreakingNewsFragment"
 
@@ -53,6 +55,7 @@ class TopHeadlinesFragment : Fragment(), OnclickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = NewsViewModel(requireContext().applicationContext as Application)
+        providerPreferencias = providerPreferencias(requireContext())
         viewModel.getBreakingNews("us")
         setupRecyclerView()
 
@@ -158,7 +161,9 @@ class TopHeadlinesFragment : Fragment(), OnclickListener {
 
         val bundle = Bundle().apply {
             putSerializable("article", article)
+            putString("origen", "topHeadlines")
         }
+        providerPreferencias.set_Nav("topHeadlines")
         findNavController().navigate(R.id.articleFragment, bundle!!)
 
     }

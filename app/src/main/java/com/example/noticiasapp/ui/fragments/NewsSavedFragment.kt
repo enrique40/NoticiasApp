@@ -16,11 +16,13 @@ import com.example.noticiasapp.databinding.FragmentNewsSavedBinding
 import com.example.noticiasapp.models.Article
 import com.example.noticiasapp.ui.viewModel.NewsViewModel
 import com.example.noticiasapp.util.OnclickListener
+import com.example.noticiasapp.util.providerPreferencias
 
 class NewsSavedFragment : Fragment(), OnclickListener {
 
     private lateinit var _binding: FragmentNewsSavedBinding
     val binding get() = _binding
+    lateinit var providerPreferencias: providerPreferencias
 
     lateinit var viewModel: NewsViewModel
     private val newsAdapter: NewsAdapter by lazy {
@@ -39,6 +41,7 @@ class NewsSavedFragment : Fragment(), OnclickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        providerPreferencias = providerPreferencias(requireContext())
         viewModel = NewsViewModel(requireContext().applicationContext as Application)
         setupRecyclerView()
 
@@ -62,7 +65,9 @@ class NewsSavedFragment : Fragment(), OnclickListener {
 
         val bundle = Bundle().apply {
             putSerializable("article", article)
+            putString("origen", "newsSave")
         }
+        providerPreferencias.set_Nav("newsSave")
         findNavController().navigate(R.id.articleFragment, bundle!!)
     }
 }

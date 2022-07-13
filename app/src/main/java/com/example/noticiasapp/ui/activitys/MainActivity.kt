@@ -6,6 +6,7 @@ import android.transition.TransitionManager
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.noticiasapp.R
@@ -13,17 +14,20 @@ import com.example.noticiasapp.databinding.ActivityMainBinding
 import com.example.noticiasapp.ui.fragments.ArticleFragment
 import com.example.noticiasapp.ui.fragments.NewsSavedFragment
 import com.example.noticiasapp.ui.fragments.TopHeadlinesFragment
+import com.example.noticiasapp.util.providerPreferencias
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
+    lateinit var providerPreferencias: providerPreferencias
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        providerPreferencias = providerPreferencias(this)
+        //providerPreferencias.pref_limpiarDatossharedPrefer()
           val toolbar = findViewById<Toolbar>(R.id.toolbar)
           setSupportActionBar(toolbar)
           supportActionBar!!.title = ""
@@ -47,9 +51,19 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     is ArticleFragment -> {
-                        binding.imgSave.visibility = View.VISIBLE
-                        binding.imgDelete.visibility = View.VISIBLE
-                        binding.backbutton.visibility = View.VISIBLE
+                       var nav = providerPreferencias.get_Nav()
+                        if (nav.equals("topHeadlines")) {
+                            binding.imgSave.visibility = View.VISIBLE
+                            binding.imgDelete.visibility = View.GONE
+                            binding.backbutton.visibility = View.VISIBLE
+                        }else {
+                            binding.imgSave.visibility = View.GONE
+                            binding.imgDelete.visibility = View.VISIBLE
+                            binding.backbutton.visibility = View.VISIBLE
+                        }
+
+
+
 
                     }
                     else ->{

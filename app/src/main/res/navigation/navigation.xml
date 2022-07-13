@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/tabsFragment">
+
+
+    <fragment
+        android:id="@+id/tabsFragment"
+        android:name="com.example.noticiasapp.ui.fragments.TabsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_tabs"
+        />
+
+
+    <fragment
+        android:id="@+id/topHeadlinesFragment"
+        android:name="com.example.noticiasapp.ui.fragments.TopHeadlinesFragment"
+        android:label=""
+        tools:layout="@layout/fragment_top_headlines" >
+        <action
+            android:id="@+id/action_topHeadlinesFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsSavedFragment"
+        android:name="com.example.noticiasapp.ui.fragments.NewsSavedFragment"
+        android:label=""
+        tools:layout="@layout/fragment_news_saved" >
+        <action
+            android:id="@+id/action_newsSavedFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.example.noticiasapp.ui.fragments.ArticleFragment"
+        android:label=""
+        tools:layout="@layout/fragment_article" >
+        <argument
+            android:name="article"
+            app:argType="com.example.noticiasapp.models.Article" />
+        <action
+            android:id="@+id/action_articleFragment_to_topHeadlinesFragment"
+            app:destination="@id/topHeadlinesFragment" />
+        <action
+            android:id="@+id/action_articleFragment_to_newsSavedFragment"
+            app:destination="@id/newsSavedFragment" />
+    </fragment>
+
+</navigation>

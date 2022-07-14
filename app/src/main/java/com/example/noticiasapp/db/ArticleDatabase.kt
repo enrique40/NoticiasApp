@@ -27,13 +27,5 @@ abstract class ArticleDatabase : RoomDatabase() {
             ).build()
             return INSTANCE!!
         }
-
-        fun destroyInstance() {
-            INSTANCE = null
-        }
-
-        fun clearTables(context: Context) {
-            getDatabase(context).clearAllTables()
-        }
     }
 }

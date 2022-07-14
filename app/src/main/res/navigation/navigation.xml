@@ -46,9 +46,6 @@
         <action
             android:id="@+id/action_articleFragment_to_newsSavedFragment"
             app:destination="@id/newsSavedFragment" />
-        <argument
-            android:name="origen"
-            app:argType="string" />
     </fragment>
 
 </navigation>

@@ -4,7 +4,6 @@ import android.content.Context
 import com.example.noticiasapp.api.RetrofitInstance
 import com.example.noticiasapp.db.ArticleDatabase
 import com.example.noticiasapp.models.Article
-import com.example.noticiasapp.ui.fragments.ArticleFragment
 
 class NewsRepository(
     context: Context

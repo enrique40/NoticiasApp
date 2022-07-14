@@ -1,15 +1,12 @@
 package com.example.noticiasapp.ui.fragments
 
 import android.app.Application
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
-import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import com.example.noticiasapp.databinding.FragmentArticleBinding
 import com.example.noticiasapp.ui.activitys.MainActivity
@@ -20,17 +17,17 @@ import com.google.android.material.snackbar.Snackbar
 class ArticleFragment : Fragment() {
 
     private lateinit var _binding: FragmentArticleBinding
-    val binding get() = _binding
+    private val binding get() = _binding
 
-    lateinit var viewModel: NewsViewModel
-    lateinit var activityMain: MainActivity
+    private lateinit var viewModel: NewsViewModel
+    private lateinit var activityMain: MainActivity
 
-    val args: ArticleFragmentArgs by navArgs()
+    private val args: ArticleFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentArticleBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -38,17 +35,15 @@ class ArticleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activityMain = activity as MainActivity
-        viewModel = NewsViewModel(requireContext().applicationContext as Application)
+        viewModel = NewsViewModel(requireContext(), requireContext().applicationContext as Application)
+
         val  article = args.article
 
 
         binding.webView.apply {
             webViewClient = WebViewClient()
             loadUrl(article.url!!)
-            //hideProgressBar()
         }
-
-
 
         activityMain.binding.backbutton.setOnClickListener {
             requireActivity().onBackPressed()
@@ -73,11 +68,4 @@ class ArticleFragment : Fragment() {
 
     }
 
-    private fun hideProgressBar() {
-        //binding.progress.visibility = View.GONE
-    }
-
-    private fun showProgressBar() {
-        //binding.progress.visibility = View.VISIBLE
-    }
 }

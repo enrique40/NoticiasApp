@@ -1,6 +1,4 @@
 <resources>
     <string name="app_name">NoticiasApp</string>
-    <string name="api_key">5372fedcd99d43b59f2c49314e9b7029</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

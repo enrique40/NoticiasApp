@@ -1,7 +1,5 @@
 package com.example.noticiasapp.adapters
 
-import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -47,20 +45,12 @@ class NewsAdapter(
             holder.viewBinding.textSource.text = article.description
 
             holder.setListener(article)
-            Log.e("TAG", "onBindViewHolder: source.name${article.source?.name} publishedAt ${article.publishedAt}")
 
         }
     }
 
     override fun getItemCount(): Int {
-        Log.e("TAG", "getItemCount: ${differ.currentList.size}" )
         return differ.currentList.size
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun clear() {
-        differ.currentList.clear()
-        notifyDataSetChanged()
     }
 
     inner class ArticleViewHolder(var viewBinding: HeadlineListItemBinding) : RecyclerView.ViewHolder(viewBinding.root) {
@@ -82,12 +72,5 @@ class NewsAdapter(
             }
         }
     }
-
-    //pasaremos el acticulo actual cuando hagamos click en un elemento a esta funcion lambda para que podamos abrir la pagina de vista web correcta
-    /*private var onItemClickListener: ((Article) -> Unit)? = null
-
-    fun setOnItemClickListener(listener: (Article) -> Unit) {
-        onItemClickListener = listener
-    }*/
 
 }

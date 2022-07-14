@@ -21,21 +21,18 @@ import okio.IOException
 import retrofit2.Response
 
 class NewsViewModel(
+    context: Context,
     app: Application
 ): AndroidViewModel(app) {
-    val newsRepository = NewsRepository(app)
+    private val newsRepository = NewsRepository(context)
     val breakingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     var breakingNewsPage = 1
-    var breakingNewsResponse: NewsResponse? = null
+    private var breakingNewsResponse: NewsResponse? = null
 
-    /*init {
-        getBreakingNews("us")
-    }*/
     fun getBreakingNews(countryCode: String) = viewModelScope.launch {
         safeBreakingNewsCall(countryCode)
     }
 
-    //Manejara la respuesta de noticas de ultima hora que generara
     private fun handleBreakingNewsResponse(response: Response<NewsResponse>) :  Resource<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
